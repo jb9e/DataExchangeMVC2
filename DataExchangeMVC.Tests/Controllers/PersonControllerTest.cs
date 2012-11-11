@@ -72,13 +72,13 @@ namespace DataExchangeMVC.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void TestPersonIndex()
-        {
-            PersonsController controller = new PersonsController();
-            var result = controller.Index() as ViewResult;
-            Assert.IsNotNull(result);
-        }
+        //[TestMethod]
+        //public void TestPersonIndex()
+        //{
+        //    PersonsController controller = new PersonsController();
+        //    var result = controller.Index() as ViewResult;
+        //    Assert.IsNotNull(result);
+        //}
 
         //[TestMethod]
         //public void TestCreateRedirect()

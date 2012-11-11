@@ -11,13 +11,13 @@ namespace DataExchangeMVC.Tests.Controllers
     [TestClass]
     public class VehicleControllerTest
     {
-        [TestMethod]
-        public void TestVehicleIndex()
-        {
-            VehiclesController controller = new VehiclesController();
-            var result = controller.Index() as ViewResult;
-            Assert.IsNotNull(result);
-        }
+        //[TestMethod]
+        //public void TestVehicleIndex()
+        //{
+        //    VehiclesController controller = new VehiclesController();
+        //    var result = controller.Index() as ViewResult;
+        //    Assert.IsNotNull(result);
+        //}
 
         [TestMethod]
         public void TestVehicleCreate()
