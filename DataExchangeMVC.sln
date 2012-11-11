@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataExchangeMVC", "DataExchangeMVC\DataExchangeMVC.csproj", "{80F66DEC-B775-4730-8829-A155CC3F76CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataExchangeMVC.Tests", "DataExchangeMVC.Tests\DataExchangeMVC.Tests.csproj", "{A205217C-F9D3-4FCA-9112-7CDB5717858A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80F66DEC-B775-4730-8829-A155CC3F76CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80F66DEC-B775-4730-8829-A155CC3F76CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80F66DEC-B775-4730-8829-A155CC3F76CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80F66DEC-B775-4730-8829-A155CC3F76CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A205217C-F9D3-4FCA-9112-7CDB5717858A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A205217C-F9D3-4FCA-9112-7CDB5717858A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A205217C-F9D3-4FCA-9112-7CDB5717858A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A205217C-F9D3-4FCA-9112-7CDB5717858A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

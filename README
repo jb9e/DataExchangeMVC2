@@ -1,0 +1,9 @@
+From the home page, you can either login with an existing user account (see below) or register a new user account. You must be logged in to perform many of the tasks in the application.
+
+Existing user accounts:
+User Name: User				Password: password 
+User Name: Administrator	Password: Administrator 
+
+Once logged in, you can click on the "People" tab or the "Vehicles" tab to perform data entry and queries.
+
+Only the Administrator account can Edit or Delete records. If you are not authorized to perform an action, you will be directed to the Log In screen where you can log in as a different user.

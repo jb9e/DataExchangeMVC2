@@ -1,0 +1,50 @@
+﻿@model DataExchangeMVC.Models.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Vehicle</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Make)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Make)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Model)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Model)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Color)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Color)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Plate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Plate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Year)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Year)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Update", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
