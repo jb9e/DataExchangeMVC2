@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataExchangeMVC.Models;
 using DataExchangeMVC.Exceptions;
+using System.Configuration;
 
 namespace DataExchangeMVC.Controllers
 {
@@ -14,13 +15,15 @@ namespace DataExchangeMVC.Controllers
 	public class PersonsController : Controller
 	{
 		private DataExchangeDBContext db = new DataExchangeDBContext();
+		private LogsController _logsController = new LogsController();
+		private int _configLogLevel = Convert.ToInt32(ConfigurationManager.AppSettings["LoggingLevel"]);
 
 		//
 		// GET: /Persons/
 
 		public ActionResult Index()
 		{
-			return View(db.Persons.ToList());
+			return View(new List<Person>());
 		}
 
 		//
@@ -48,7 +51,7 @@ namespace DataExchangeMVC.Controllers
 		// POST: /Persons/Create
 
 		[HttpPost]
-		[Authorize]
+		[MyAuthorize]
 		public ActionResult Create(Person person)
 		{
 			if (ModelState.IsValid)
@@ -78,7 +81,7 @@ namespace DataExchangeMVC.Controllers
 		// POST: /Persons/Edit/5
 
 		[HttpPost]
-		[Authorize(Users = "Administrator")]
+		[MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
 		public ActionResult Edit(Person person)
 		{
 			if (ModelState.IsValid)
@@ -107,7 +110,7 @@ namespace DataExchangeMVC.Controllers
 		// POST: /Persons/Delete/5
 
 		[HttpPost, ActionName("Delete")]
-		[Authorize(Users = "Administrator")]
+		[MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
 		public ActionResult DeleteConfirmed(int id)
 		{
 			Person person = db.Persons.Find(id);
@@ -124,12 +127,12 @@ namespace DataExchangeMVC.Controllers
 
 		public ActionResult PersonQuery()
 		{
-			return View(db.Persons.ToList());
+			return View(new List<Person>());
 		}
 
 		[HttpPost]
 		[HandleError(View="NoRecordFoundError", ExceptionType=typeof(NoRecordFoundException))]
-		[Authorize]
+		[MyAuthorize]
 		public ActionResult PersonQuery(Person queryPerson)
 		{
 			//var FirstNameLst = new List<string>();
@@ -156,10 +159,18 @@ namespace DataExchangeMVC.Controllers
 
 			if (persons.Count() > 0)
 			{
+				if (_configLogLevel > 2)
+				{
+					_logsController.LogMessage(3, "Successful query for: " + queryPerson.FirstName + " " + queryPerson.LastName);
+				}
 				return View(persons);
 			}
 			else
 			{
+				if (_configLogLevel > 1)
+				{					
+					_logsController.LogMessage(2, "No record found for: " + queryPerson.FirstName + " " + queryPerson.LastName); 
+				}
 				throw new NoRecordFoundException();
 			}
 		}

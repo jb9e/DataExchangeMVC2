@@ -1,33 +1,16 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-@*                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.*@
-                This is a lovely blue section.
-            </p>
-        </div>
-    </section>
-}
-<h3>You can do the following:</h3>
+﻿@{ViewBag.Title = "Home Page";}
+
+<h1>@ViewBag.Message</h1>
+
+<h2>You can do the following:</h2>
 <ol class="round">
     <li class="one">
-        <h5>Manage Person records</h5>
+        <h3>Manage Person records</h3>
         Choose the People tab above 
     </li>
 
     <li class="two">
-        <h5>Manage Vehicle records</h5>
+        <h3>Manage Vehicle records</h3>
         Choose the Vehicles tab above
     </li>
 </ol>

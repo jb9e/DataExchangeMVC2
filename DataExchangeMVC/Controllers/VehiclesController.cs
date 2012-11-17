@@ -7,19 +7,22 @@ using System.Web;
 using System.Web.Mvc;
 using DataExchangeMVC.Models;
 using DataExchangeMVC.Exceptions;
+using System.Configuration;
 
 namespace DataExchangeMVC.Controllers
 {
     public class VehiclesController : Controller
     {
         private DataExchangeDBContext db = new DataExchangeDBContext();
+        private LogsController _logsController = new LogsController();
+        private int _configLogLevel = Convert.ToInt32(ConfigurationManager.AppSettings["LoggingLevel"]);
 
         //
         // GET: /Vehicles/
 
         public ActionResult Index()
         {
-            return View(db.Vehicles.ToList());
+            return View(new List<Vehicle>());
         }
 
         //
@@ -47,7 +50,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Vehicles/Create
 
         [HttpPost]
-        [Authorize]
+        [MyAuthorize]
         public ActionResult Create(Vehicle vehicle)
         {
             if (ModelState.IsValid)
@@ -77,7 +80,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Vehicles/Edit/5
 
         [HttpPost]
-        [Authorize(Users = "Administrator")]
+        [MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult Edit(Vehicle vehicle)
         {
             if (ModelState.IsValid)
@@ -106,7 +109,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Vehicles/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        [Authorize(Users = "Administrator")]
+        [MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult DeleteConfirmed(int id)
         {
             Vehicle vehicle = db.Vehicles.Find(id);
@@ -123,12 +126,12 @@ namespace DataExchangeMVC.Controllers
 
         public ActionResult VehicleQuery()
         {
-            return View(db.Vehicles.ToList());
+            return View(new List<Vehicle>());
         }
 
         [HttpPost]
         [HandleError(View = "NoRecordFoundError", ExceptionType = typeof(NoRecordFoundException))]
-        [Authorize]
+        [MyAuthorize]
         public ActionResult VehicleQuery(Vehicle queryVehicle)
         {
             Session["LastVehicleQuery"] = queryVehicle.Make + " " + queryVehicle.Model;
@@ -139,10 +142,18 @@ namespace DataExchangeMVC.Controllers
 
             if (vehicles.Count() > 0)
             {
+                if (_configLogLevel > 2)
+                {
+                    _logsController.LogMessage(3, "Successful query for: " + queryVehicle.Make + " " + queryVehicle.Model);
+                }
                 return View(vehicles);
             }
             else
             {
+                if (_configLogLevel > 1)
+                {
+                    _logsController.LogMessage(2, "No record found for: " + queryVehicle.Make + " " + queryVehicle.Model);
+                }
                 throw new NoRecordFoundException();
             }
         }

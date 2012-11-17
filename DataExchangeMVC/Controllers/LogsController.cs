@@ -16,6 +16,7 @@ namespace DataExchangeMVC.Controllers
         //
         // GET: /Logs/
 
+        [MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult Index()
         {
             return View(db.Logs.ToList());
@@ -75,6 +76,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Logs/Edit/5
 
         [HttpPost]
+        [MyAuthorize(Users = "Administrator")]
         public ActionResult Edit(Log log)
         {
             if (ModelState.IsValid)
@@ -103,6 +105,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Logs/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [MyAuthorize(Users = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Log log = db.Logs.Find(id);
@@ -115,6 +118,28 @@ namespace DataExchangeMVC.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public bool LogMessage(int loggingLevel, string message)
+        {
+            try
+            {
+                Log log = new Log();
+
+                log.Level = loggingLevel;
+                log.Message = message;
+                log.Time = DateTime.Now;
+
+                db.Logs.Add(log);
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Logging Failed!! " + ex.Message);
+                return false;
+            }
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "NotAuthorized";
+}
+
+<h2>Not Authorized!</h2>
+
+<hgroup class="title">
+    <h1 class="error">You are not authorized to perform this action.</h1>
+    <h2 class="error">Please login as a different user.</h2>
+    <h3>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</h3>
+</hgroup>

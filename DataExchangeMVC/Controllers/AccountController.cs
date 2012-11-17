@@ -14,7 +14,7 @@ using System.Web.Caching;
 
 namespace DataExchangeMVC.Controllers
 {
-    [Authorize]
+    [MyAuthorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
@@ -145,7 +145,7 @@ namespace DataExchangeMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Users = "Administrator")]
+        [MyAuthorize(Users = "Administrator")]
         public ActionResult Manage(LocalPasswordModel model)
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
@@ -330,6 +330,12 @@ namespace DataExchangeMVC.Controllers
 
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
+        }
+
+        public ActionResult NotAuthorized(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
         }
 
         #region Helpers
