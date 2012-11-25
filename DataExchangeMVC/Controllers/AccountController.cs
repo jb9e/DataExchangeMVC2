@@ -65,6 +65,7 @@ namespace DataExchangeMVC.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewData["roleName"] = new SelectList(Roles.GetAllRoles(), "roleName");
             return View();
         }
 
@@ -74,8 +75,9 @@ namespace DataExchangeMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModel model, string roleName)
         {
+            //ViewData["roleName"] = new SelectList(Roles.GetAllRoles(), "roleName");
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -83,6 +85,7 @@ namespace DataExchangeMVC.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    Roles.AddUserToRole(model.UserName, roleName);
                     //TempData.Add("UserName", ", " + model.UserName + ",");
                     return RedirectToAction("Index", "Home");
                 }
@@ -145,7 +148,7 @@ namespace DataExchangeMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [MyAuthorize(Users = "Administrator")]
+        [MyAuthorize(Roles = "Admin", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult Manage(LocalPasswordModel model)
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
@@ -267,7 +270,7 @@ namespace DataExchangeMVC.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (DataExchangeDBContext db = new DataExchangeDBContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists

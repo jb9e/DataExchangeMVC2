@@ -1,10 +1,12 @@
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using WebMatrix.WebData;
+using System.Web.Security;
+
 namespace DataExchangeMVC.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     internal sealed class Configuration : DbMigrationsConfiguration<DataExchangeMVC.Models.DataExchangeDBContext>
     {
         public Configuration()
@@ -26,6 +28,34 @@ namespace DataExchangeMVC.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            WebSecurity.InitializeDatabaseConnection(
+                "DataExchangeDBContext",
+                "UserProfile",
+                "UserId",
+                "UserName", autoCreateTables: true);
+
+            if (!Roles.RoleExists("Admin"))
+                Roles.CreateRole("Admin");
+
+            if (!Roles.RoleExists("User"))
+                Roles.CreateRole("User");
+
+            if (!WebSecurity.UserExists("Administrator"))
+                WebSecurity.CreateUserAndAccount(
+                    "Administrator",
+                    "Administrator");
+
+            if (!WebSecurity.UserExists("User"))
+                WebSecurity.CreateUserAndAccount(
+                    "User",
+                    "password");
+
+            if (!Roles.GetRolesForUser("Administrator").Contains("Admin"))
+                Roles.AddUsersToRoles(new[] { "Administrator" }, new[] { "Admin" });
+
+            if (!Roles.GetRolesForUser("User").Contains("User"))
+                Roles.AddUsersToRoles(new[] { "User" }, new[] { "User" });
         }
     }
 }

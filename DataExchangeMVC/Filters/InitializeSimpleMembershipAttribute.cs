@@ -25,11 +25,11 @@ namespace DataExchangeMVC.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<DataExchangeDBContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new DataExchangeDBContext())
                     {
                         if (!context.Database.Exists())
                         {

@@ -51,14 +51,21 @@ namespace DataExchangeMVC.Controllers
 		// POST: /Persons/Create
 
 		[HttpPost]
-		[MyAuthorize]
+		//[MyAuthorize]
 		public ActionResult Create(Person person)
 		{
 			if (ModelState.IsValid)
 			{
 				db.Persons.Add(person);
 				db.SaveChanges();
-				return RedirectToAction("Index");
+				//return RedirectToAction("Index");
+				ViewBag.PersonEntryMessage = person.FirstName + " " + person.LastName + " entered successfully!";
+				if (_configLogLevel > 2)
+				{
+					_logsController.LogMessage(3, "Successful entry for: " + person.FirstName + " " + person.LastName + " by " + User.Identity.Name);
+				}
+				ModelState.Clear();
+				return View();
 			}
 
 			return View(person);
@@ -81,7 +88,7 @@ namespace DataExchangeMVC.Controllers
 		// POST: /Persons/Edit/5
 
 		[HttpPost]
-		[MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
+		[MyAuthorize(Roles = "Admin", NotifyUrl = "/Account/NotAuthorized")]
 		public ActionResult Edit(Person person)
 		{
 			if (ModelState.IsValid)
@@ -110,7 +117,7 @@ namespace DataExchangeMVC.Controllers
 		// POST: /Persons/Delete/5
 
 		[HttpPost, ActionName("Delete")]
-		[MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
+		[MyAuthorize(Roles = "Admin", NotifyUrl = "/Account/NotAuthorized")]
 		public ActionResult DeleteConfirmed(int id)
 		{
 			Person person = db.Persons.Find(id);
@@ -132,7 +139,7 @@ namespace DataExchangeMVC.Controllers
 
 		[HttpPost]
 		[HandleError(View="NoRecordFoundError", ExceptionType=typeof(NoRecordFoundException))]
-		[MyAuthorize]
+		//[MyAuthorize]
 		public ActionResult PersonQuery(Person queryPerson)
 		{
 			//var FirstNameLst = new List<string>();
@@ -154,7 +161,7 @@ namespace DataExchangeMVC.Controllers
 			Session["LastPersonQuery"] = queryPerson.FirstName + " " + queryPerson.LastName;
 			
 			var persons = from p in db.Persons
-						  where p.FirstName == queryPerson.FirstName && p.LastName == queryPerson.LastName
+						  where p.FirstName.ToUpper().Contains(queryPerson.FirstName.ToUpper()) && p.LastName.ToUpper().Contains(queryPerson.LastName.ToUpper())
 						  select p;
 
 			if (persons.Count() > 0)

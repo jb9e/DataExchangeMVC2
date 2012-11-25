@@ -16,7 +16,7 @@ namespace DataExchangeMVC.Controllers
         //
         // GET: /Logs/
 
-        [MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
+        [MyAuthorize(Roles = "Admin", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult Index()
         {
             return View(db.Logs.ToList());
@@ -76,7 +76,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Logs/Edit/5
 
         [HttpPost]
-        [MyAuthorize(Users = "Administrator")]
+        [MyAuthorize(Roles = "Admin", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult Edit(Log log)
         {
             if (ModelState.IsValid)

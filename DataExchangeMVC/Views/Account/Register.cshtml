@@ -28,10 +28,15 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
+
+        <label for="roleName">Select Role:</label>
+          @Html.DropDownList("roleName")
+          @Html.ValidationMessage("roleName")
+
         <input type="submit" value="Register" />
     </fieldset>
 }
 
-@*@section Scripts {
+@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}*@
+}

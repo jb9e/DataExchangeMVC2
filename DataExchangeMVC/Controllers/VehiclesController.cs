@@ -57,7 +57,14 @@ namespace DataExchangeMVC.Controllers
             {
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                ViewBag.VehicleEntryMessage = vehicle.Make + " " + vehicle.Model + " entered successfully!";
+                if (_configLogLevel > 2)
+                {
+                    _logsController.LogMessage(3, "Successful entry for: " + vehicle.Make + " " + vehicle.Model + " by " + User.Identity.Name);
+                }
+                ModelState.Clear();
+                return View();
             }
 
             return View(vehicle);
@@ -80,7 +87,7 @@ namespace DataExchangeMVC.Controllers
         // POST: /Vehicles/Edit/5
 
         [HttpPost]
-        [MyAuthorize(Users = "Administrator", NotifyUrl = "/Account/NotAuthorized")]
+        [MyAuthorize(Roles = "Admin", NotifyUrl = "/Account/NotAuthorized")]
         public ActionResult Edit(Vehicle vehicle)
         {
             if (ModelState.IsValid)
@@ -137,7 +144,7 @@ namespace DataExchangeMVC.Controllers
             Session["LastVehicleQuery"] = queryVehicle.Make + " " + queryVehicle.Model;
 
             var vehicles = from v in db.Vehicles
-                          where v.Make == queryVehicle.Make && v.Model == queryVehicle.Model
+                          where v.Make.ToUpper().Contains(queryVehicle.Make.ToUpper()) && v.Model.ToUpper().Contains(queryVehicle.Model.ToUpper())
                           select v;
 
             if (vehicles.Count() > 0)

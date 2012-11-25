@@ -9,15 +9,15 @@ using System.Web.Security;
 
 namespace DataExchangeMVC.Models
 {
-    public class UsersContext : DbContext
-    {
-        public UsersContext()
-            : base("DataExchangeDBContext")
-        {
-        }
+    //public class UsersContext : DbContext
+    //{
+    //    public UsersContext()
+    //        : base("DataExchangeDBContext")
+    //    {
+    //    }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
+    //    public DbSet<UserProfile> UserProfiles { get; set; }
+    //}
 
     [Table("UserProfile")]
     public class UserProfile

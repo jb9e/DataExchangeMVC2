@@ -69,12 +69,12 @@ namespace DataExchangeMVC.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        //[TestMethod]
-        //public void TestLogIndex()
-        //{
-        //    LogsController controller = new LogsController();
-        //    var result = controller.Index() as ViewResult;
-        //    Assert.IsNotNull(result);
-        //}
+        [TestMethod]
+        public void TestLogIndex()
+        {
+            LogsController controller = new LogsController();
+            var result = controller.Index() as ViewResult;
+            Assert.IsNotNull(result);
+        }
     }
 }
