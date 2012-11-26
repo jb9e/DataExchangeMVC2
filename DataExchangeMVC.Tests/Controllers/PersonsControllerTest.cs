@@ -80,6 +80,14 @@ namespace DataExchangeMVC.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
+        [TestMethod]
+        public void TestPersonQuery()
+        {
+            PersonsController controller = new PersonsController();
+            var result = controller.PersonQuery() as ViewResult;
+            Assert.IsNotNull(result);
+        }
+
         //[TestMethod]
         //public void TestCreateRedirect()
         //{
