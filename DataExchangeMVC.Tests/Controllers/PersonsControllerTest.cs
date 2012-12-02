@@ -80,16 +80,16 @@ namespace DataExchangeMVC.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void TestPersonQuery()
-        {
-            PersonsController controller = new PersonsController();
-            Person person = new Person();
-            person.FirstName = "Mickey";
-            person.LastName = "Mouse";
-            var result = controller.PersonQuery(person) as ViewResult;
-            Assert.IsNotNull(result);
-        }
+        //[TestMethod]
+        //public void TestPersonQuery()
+        //{
+        //    PersonsController controller = new PersonsController();
+        //    Person person = new Person();
+        //    person.FirstName = "Mickey";
+        //    person.LastName = "Mouse";
+        //    var result = controller.PersonQuery(person) as ViewResult;
+        //    Assert.IsNotNull(result);
+        //}
 
         //[TestMethod]
         //public void TestCreateRedirect()

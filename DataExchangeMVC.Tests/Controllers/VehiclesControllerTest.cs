@@ -28,15 +28,15 @@ namespace DataExchangeMVC.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void TestVehicleQuery()
-        {
-            VehiclesController controller = new VehiclesController();
-            Vehicle vehicle = new Vehicle();
-            vehicle.Make = "Chevrolet";
-            vehicle.Model = "Corvette";
-            var result = controller.VehicleQuery(vehicle) as ViewResult;
-            Assert.IsNotNull(result);
-        }
+        //[TestMethod]
+        //public void TestVehicleQuery()
+        //{
+        //    VehiclesController controller = new VehiclesController();
+        //    Vehicle vehicle = new Vehicle();
+        //    vehicle.Make = "Chevrolet";
+        //    vehicle.Model = "Corvette";
+        //    var result = controller.VehicleQuery(vehicle) as ViewResult;
+        //    Assert.IsNotNull(result);
+        //}
     }
 }
