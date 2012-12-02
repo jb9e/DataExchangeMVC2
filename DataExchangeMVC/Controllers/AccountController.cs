@@ -11,6 +11,11 @@ using WebMatrix.WebData;
 using DataExchangeMVC.Filters;
 using DataExchangeMVC.Models;
 using System.Web.Caching;
+using System.Configuration;
+using System.Net.Sockets;
+using System.Net;
+using DataExchangeMVC.Services;
+using DataExchangeMVC.Services.Interfaces;
 
 namespace DataExchangeMVC.Controllers
 {
@@ -36,10 +41,37 @@ namespace DataExchangeMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            bool useAuthSvc = (ConfigurationManager.AppSettings["UseAuthenticationService"].ToUpper() == "TRUE") ? true : false;
+
+            if (useAuthSvc)
             {
-                //TempData.Add("UserName", ", " + model.UserName + ",");
-                return RedirectToLocal(returnUrl);
+                if (ModelState.IsValid)
+                {
+                    Factory factory = Factory.GetInstance();
+                    IAuthenticationSvc authenticationSvc = (IAuthenticationSvc)factory.GetService(typeof(IAuthenticationSvc).Name);
+                    
+                    try
+                    {
+                        if (authenticationSvc.Authenticate(model.UserName, model.Password))
+                        {
+                            // Veirifed, so log in as administrator
+                            WebSecurity.Login("Administrator", "Administrator", persistCookie: model.RememberMe);
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // Swallow and go to model error
+                    }
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+                {
+                    //TempData.Add("UserName", ", " + model.UserName + ",");
+                    return RedirectToLocal(returnUrl);
+                } 
             }
 
             // If we got this far, something failed, redisplay form

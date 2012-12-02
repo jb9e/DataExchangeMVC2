@@ -84,7 +84,10 @@ namespace DataExchangeMVC.Tests.Controllers
         public void TestPersonQuery()
         {
             PersonsController controller = new PersonsController();
-            var result = controller.PersonQuery() as ViewResult;
+            Person person = new Person();
+            person.FirstName = "Mickey";
+            person.LastName = "Mouse";
+            var result = controller.PersonQuery(person) as ViewResult;
             Assert.IsNotNull(result);
         }
 

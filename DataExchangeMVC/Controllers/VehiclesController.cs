@@ -141,7 +141,10 @@ namespace DataExchangeMVC.Controllers
         [MyAuthorize]
         public ActionResult VehicleQuery(Vehicle queryVehicle)
         {
-            Session["LastVehicleQuery"] = queryVehicle.Make + " " + queryVehicle.Model;
+            if (Session != null)
+            {
+                Session["LastVehicleQuery"] = queryVehicle.Make + " " + queryVehicle.Model; 
+            }
 
             var vehicles = from v in db.Vehicles
                           where v.Make.ToUpper().Contains(queryVehicle.Make.ToUpper()) && v.Model.ToUpper().Contains(queryVehicle.Model.ToUpper())

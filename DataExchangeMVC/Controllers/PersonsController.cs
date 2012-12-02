@@ -158,7 +158,10 @@ namespace DataExchangeMVC.Controllers
 			//    persons = persons.Where(s => s.LastName.Contains(lastName));
 			//}
 
-			Session["LastPersonQuery"] = queryPerson.FirstName + " " + queryPerson.LastName;
+			if (Session != null)
+			{
+				Session["LastPersonQuery"] = queryPerson.FirstName + " " + queryPerson.LastName; 
+			}
 			
 			var persons = from p in db.Persons
 						  where p.FirstName.ToUpper().Contains(queryPerson.FirstName.ToUpper()) && p.LastName.ToUpper().Contains(queryPerson.LastName.ToUpper())
