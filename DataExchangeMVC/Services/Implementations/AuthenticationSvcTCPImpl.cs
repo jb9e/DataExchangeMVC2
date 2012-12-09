@@ -7,7 +7,7 @@ using System.Net;
 using System.IO;
 using DataExchangeMVC.Services.Interfaces;
 
-namespace DataExchangeMVC.Services
+namespace DataExchangeMVC.Services.Implementations
 {
     class AuthenticationSvcTCPImpl : IAuthenticationSvc
     {

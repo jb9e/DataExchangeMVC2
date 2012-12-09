@@ -1,9 +1,11 @@
-From the home page, you can either login with an existing user account (see below) or register a new user account. You must be logged in to perform many of the tasks in the application.
+From the home page, you can either login with an existing user account (see below) or register a new user account. You must be logged in to perform tasks in the application.
 
 Existing user accounts:
 User Name: User				Password: password 
 User Name: Administrator	Password: Administrator 
 
-Once logged in, you can click on the "People" tab or the "Vehicles" tab to perform data entry and queries.
+Once logged in, you can click on the "People" tab or the "Vehicles" tab to perform data entry and queries. 
+You can register a user in the Admin role.
+If you are logged in as user in the Admin role, you can also click on click on the "Logs" tab to view the system logging.
 
-Only the Administrator account can Edit or Delete records. If you are not authorized to perform an action, you will be directed to the Log In screen where you can log in as a different user.
+Only users in the Admin role can Edit/Delete records and view Logs.
