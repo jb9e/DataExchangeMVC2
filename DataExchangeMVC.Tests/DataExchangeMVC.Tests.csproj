@@ -129,6 +129,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationSvcTCPImplTest.cs" />
     <Compile Include="AuthenticationSvcWCFImplTest.cs" />
+    <Compile Include="AuthenticationSvcWSImplTest.cs" />
     <Compile Include="Controllers\LogsControllerTest.cs" />
     <Compile Include="Controllers\PersonsControllerTest.cs" />
     <Compile Include="Controllers\VehiclesControllerTest.cs" />

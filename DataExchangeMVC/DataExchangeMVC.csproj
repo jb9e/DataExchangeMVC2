@@ -174,6 +174,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="Factory.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Service References\WCFAuthenticationSvcReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,12 +203,18 @@
     <Compile Include="Models\Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementations\AuthenticationSvcWCFImpl.cs" />
+    <Compile Include="Services\Implementations\AuthenticationSvcWSImpl.cs" />
     <Compile Include="Services\Interfaces\IAuthenticationSvc.cs" />
     <Compile Include="Services\Interfaces\IService.cs" />
     <Compile Include="SignalR.Sample\Stock.cs" />
     <Compile Include="SignalR.Sample\StockTicker.cs" />
     <Compile Include="SignalR.Sample\StockTickerHub.cs" />
     <Compile Include="SignalRMoveShape\MoveShapeHub.cs" />
+    <Compile Include="Web References\AuthenticationWSReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\style.css" />
@@ -287,6 +298,10 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Service References\WCFAuthenticationSvcReference\DataExchangeMVC.WCFAuthenticationSvcReference.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -301,6 +316,11 @@
     <Content Include="SignalR.Sample\StockTicker.css" />
     <Content Include="SignalR.Sample\StockTicker.html" />
     <Content Include="SignalRMoveShape\MoveShape.js" />
+    <None Include="Web References\AuthenticationWSReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\AuthenticationWSReference\Service.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -352,6 +372,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\WCFAuthenticationSvcReference\WCFAuthenticationSvc.wsdl" />
+    <None Include="Web References\AuthenticationWSReference\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -421,6 +442,22 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\WCFAuthenticationSvcReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:2926/AuthenticationWebService/Service.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AuthenticationWSReference\</RelPath>
+      <UpdateFromURL>http://localhost:2926/AuthenticationWebService/Service.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>DataExchangeMVC_AuthenticationWSReference_Service</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

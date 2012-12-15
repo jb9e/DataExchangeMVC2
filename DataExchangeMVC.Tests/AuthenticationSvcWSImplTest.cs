@@ -8,12 +8,12 @@
 //namespace DataExchangeMVC.Tests
 //{
 //    [TestClass]
-//    public class AuthenticationSvcWCFImplTest
+//    public class AuthenticationSvcWSImplTest
 //    {
 //        [TestMethod()]
-//        public void WCFAuthenticateTest()
+//        public void WSAuthenticateTest()
 //        {
-//            AuthenticationSvcWCFImpl target = new AuthenticationSvcWCFImpl();
+//            AuthenticationSvcWSImpl target = new AuthenticationSvcWSImpl();
 //            string userName = "Regis";
 //            string password = "Regis";
 //            bool expected = true;
